@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, 
   Download, 
@@ -108,17 +109,30 @@ ${LANGUAGES_LIST.map(l => `* ${l.language}: ${l.proficiency}`).join('\n')}
   };
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="cv-modal-title"
-    >
-      <div 
-        className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-2xl shadow-2xl text-slate-800 dark:text-slate-100 overflow-hidden my-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Top Bar */}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          key="cv-modal-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cv-modal-title"
+          onClick={onClose}
+        >
+          <motion.div 
+            key="cv-modal-card"
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ type: "spring", duration: 0.35, bounce: 0.12 }}
+            className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-2xl shadow-2xl text-slate-800 dark:text-slate-100 overflow-hidden my-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Top Bar */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 sticky top-0 z-10">
           <div className="flex items-center gap-2">
             <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
@@ -326,7 +340,9 @@ ${LANGUAGES_LIST.map(l => `* ${l.language}: ${l.proficiency}`).join('\n')}
           </div>
         </div>
 
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

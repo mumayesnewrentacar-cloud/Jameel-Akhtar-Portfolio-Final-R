@@ -5,8 +5,13 @@ import {
 } from 'lucide-react';
 import { CANDIDATE_PROFILE } from '../data/portfolioData';
 import { useLocalization } from '../context/LocalizationContext';
+import { ExecutiveProfileFrame } from './ExecutiveProfileFrame';
 
-export const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  onOpenCVModal?: () => void;
+}
+
+export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCVModal }) => {
   const { t, isRTL } = useLocalization();
 
   const storyProgression = [
@@ -86,8 +91,11 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Compact Professional Snapshot Panel */}
-          <div className="lg:col-span-5">
+          {/* Right: Executive Profile Frame & Compact Professional Snapshot */}
+          <div className="lg:col-span-5 space-y-5">
+            {/* Executive Framed Identity Card */}
+            <ExecutiveProfileFrame onOpenCVModal={onOpenCVModal} />
+
             <div className="bg-slate-50 dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6 shadow-md dark:shadow-xl space-y-5">
               <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-2">

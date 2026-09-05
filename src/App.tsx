@@ -16,15 +16,19 @@ import { Footer } from './components/Footer';
 import { ResumeDownloadModal } from './components/ResumeDownloadModal';
 import { AnimatedSection } from './components/AnimatedSection';
 import { CinematicAmbientCanvas, CinematicTelemetryBar } from './components/CinematicAmbientCanvas';
+import { CinematicThemeCrossfade } from './components/CinematicThemeCrossfade';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
 
 export default function App() {
   const [isCVModalOpen, setIsCVModalOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 transition-colors duration-200">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 transition-colors duration-450">
       {/* Background Cinematic Luminous Glows */}
       <CinematicAmbientCanvas />
+
+      {/* Cinematic Theme Cross-Fade Exposure Shutter */}
+      <CinematicThemeCrossfade />
 
       {/* Top Financial Telemetry Ticker */}
       <CinematicTelemetryBar />
@@ -42,7 +46,7 @@ export default function App() {
 
         {/* 2. Professional Summary & Storytelling Arc */}
         <AnimatedSection index={1}>
-          <AboutSection />
+          <AboutSection onOpenCVModal={() => setIsCVModalOpen(true)} />
         </AnimatedSection>
 
         {/* 3. Core Operating Values: How I Add Value */}

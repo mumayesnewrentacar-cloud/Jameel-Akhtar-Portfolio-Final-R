@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, 
   Layers, 
@@ -36,20 +37,31 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
     };
   }, [project, onClose]);
 
-  if (!project) return null;
-
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/70 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-project-title"
-    >
-      <div 
-        className="relative w-full max-w-4xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-2xl shadow-2xl text-slate-900 dark:text-slate-100 overflow-hidden my-auto transition-colors duration-200"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Header */}
+    <AnimatePresence>
+      {project && (
+        <motion.div 
+          key="project-modal-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-project-title"
+          onClick={onClose}
+        >
+          <motion.div 
+            key="project-modal-card"
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ type: "spring", duration: 0.35, bounce: 0.12 }}
+            className="relative w-full max-w-4xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-2xl shadow-2xl text-slate-900 dark:text-slate-100 overflow-hidden my-auto transition-colors duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
         <div className="flex items-start justify-between p-5 sm:p-6 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 sticky top-0 z-10 backdrop-blur-xs">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
@@ -307,7 +319,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           </button>
         </div>
 
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

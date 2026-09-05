@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
 
 export type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
+  isTransitioning: boolean;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
 }
@@ -11,8 +12,12 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = 'portfolio_theme';
+const TRANSITION_DURATION = 450; // milliseconds
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const transitionTimerRef = useRef<number | null>(null);
+
   const [theme, setThemeState] = useState<Theme>(() => {
     // Check localStorage first
     if (typeof window !== 'undefined') {
@@ -29,9 +34,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return 'dark';
   });
 
-  useEffect(() => {
+  // Helper to apply classes and CSS properties to DOM
+  const applyThemeToDOM = useCallback((targetTheme: Theme) => {
+    if (typeof document === 'undefined') return;
     const root = document.documentElement;
-    if (theme === 'dark') {
+    if (targetTheme === 'dark') {
       root.classList.add('dark');
       root.classList.remove('light');
       root.setAttribute('data-theme', 'dark');
@@ -44,12 +51,59 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.style.colorScheme = 'light';
       root.style.backgroundColor = '#f8fafc';
     }
+  }, []);
+
+  // Update theme on mount & persist
+  useEffect(() => {
+    applyThemeToDOM(theme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch (e) {
       console.warn('Unable to persist theme to localStorage:', e);
     }
-  }, [theme]);
+  }, [theme, applyThemeToDOM]);
+
+  // Smooth cinematic theme change executor
+  const changeThemeWithTransition = useCallback((nextTheme: Theme) => {
+    if (nextTheme === theme) return;
+
+    if (transitionTimerRef.current) {
+      window.clearTimeout(transitionTimerRef.current);
+    }
+
+    const root = document.documentElement;
+    root.classList.add('theme-transitioning');
+    setIsTransitioning(true);
+
+    const prefersReducedMotion = 
+      typeof window !== 'undefined' && 
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const commitTheme = () => {
+      setThemeState(nextTheme);
+      applyThemeToDOM(nextTheme);
+    };
+
+    // Use native View Transitions API if supported and motion enabled
+    if (!prefersReducedMotion && typeof document !== 'undefined' && 'startViewTransition' in document) {
+      try {
+        (document as any).startViewTransition(() => {
+          commitTheme();
+        });
+      } catch {
+        commitTheme();
+      }
+    } else {
+      commitTheme();
+    }
+
+    // Clean up transitioning state after cross-fade duration
+    transitionTimerRef.current = window.setTimeout(() => {
+      root.classList.remove('theme-transitioning');
+      setIsTransitioning(false);
+      transitionTimerRef.current = null;
+    }, TRANSITION_DURATION);
+  }, [theme, applyThemeToDOM]);
 
   // Listen for system theme changes if user hasn't explicitly set a preference
   useEffect(() => {
@@ -57,24 +111,29 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const handleChange = (e: MediaQueryListEvent) => {
       const hasSavedTheme = localStorage.getItem(THEME_STORAGE_KEY);
       if (!hasSavedTheme) {
-        setThemeState(e.matches ? 'dark' : 'light');
+        changeThemeWithTransition(e.matches ? 'dark' : 'light');
       }
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+      if (transitionTimerRef.current) {
+        window.clearTimeout(transitionTimerRef.current);
+      }
+    };
+  }, [changeThemeWithTransition]);
 
-  const toggleTheme = () => {
-    setThemeState((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
-  };
+  const toggleTheme = useCallback(() => {
+    changeThemeWithTransition(theme === 'dark' ? 'light' : 'dark');
+  }, [theme, changeThemeWithTransition]);
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-  };
+  const setTheme = useCallback((newTheme: Theme) => {
+    changeThemeWithTransition(newTheme);
+  }, [changeThemeWithTransition]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, isTransitioning, toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

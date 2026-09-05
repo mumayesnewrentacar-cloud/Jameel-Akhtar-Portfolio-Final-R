@@ -1,10 +1,12 @@
 import React, { useRef, useState, useCallback } from 'react';
+import { motion } from 'motion/react';
 
 interface CinematicSpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   spotlightColor?: string;
   borderColor?: string;
+  hasFrameBrackets?: boolean;
 }
 
 export const CinematicSpotlightCard: React.FC<CinematicSpotlightCardProps> = ({
@@ -12,6 +14,7 @@ export const CinematicSpotlightCard: React.FC<CinematicSpotlightCardProps> = ({
   className = '',
   spotlightColor = 'rgba(16, 185, 129, 0.12)',
   borderColor = 'rgba(16, 185, 129, 0.4)',
+  hasFrameBrackets = true,
   ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -37,14 +40,38 @@ export const CinematicSpotlightCard: React.FC<CinematicSpotlightCardProps> = ({
   }, []);
 
   return (
-    <div
+    <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-2xl overflow-hidden transition-all duration-300 ${className}`}
-      {...props}
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className={`relative rounded-2xl overflow-hidden transition-colors duration-300 ${className}`}
+      {...(props as any)}
     >
+      {/* Precision Optical Corner Frame Reticles */}
+      {hasFrameBrackets && (
+        <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+          {/* Top Left */}
+          <span className={`absolute top-1.5 left-1.5 w-2 h-2 border-t border-l transition-colors duration-300 ${
+            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+          }`} />
+          {/* Top Right */}
+          <span className={`absolute top-1.5 right-1.5 w-2 h-2 border-t border-r transition-colors duration-300 ${
+            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+          }`} />
+          {/* Bottom Left */}
+          <span className={`absolute bottom-1.5 left-1.5 w-2 h-2 border-b border-l transition-colors duration-300 ${
+            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+          }`} />
+          {/* Bottom Right */}
+          <span className={`absolute bottom-1.5 right-1.5 w-2 h-2 border-b border-r transition-colors duration-300 ${
+            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+          }`} />
+        </div>
+      )}
+
       {/* Dynamic Cursor Spotlight Surface Glow */}
       <div
         className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-10"
@@ -74,6 +101,6 @@ export const CinematicSpotlightCard: React.FC<CinematicSpotlightCardProps> = ({
       <div className="relative z-0 h-full w-full">
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { 
   ArrowRight, 
   FileText, 
@@ -37,14 +38,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCVModal }) => {
           <div className="lg:col-span-6 space-y-6">
             
             {/* Professional Status Pill with Cinematic Pulse */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 shadow-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="font-mono text-slate-800 dark:text-slate-200 font-medium">{t('profile.name')}</span>
-              <span className="text-slate-400 dark:text-slate-500">•</span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{t('profile.yearsExperience')}</span>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/95 dark:bg-slate-850/95 backdrop-blur-md border border-slate-200 dark:border-slate-750 text-xs text-slate-700 dark:text-slate-300 shadow-md shadow-emerald-500/5">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                </span>
+                <span className="font-mono text-slate-900 dark:text-white font-bold">{t('profile.name')}</span>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-semibold font-mono">{t('profile.yearsExperience')}</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[11px] font-mono text-emerald-700 dark:text-emerald-400 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <span>IFRS Framework Compliant</span>
+              </div>
             </div>
 
             {/* Main Headline */}
@@ -148,12 +156,40 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCVModal }) => {
 
           </div>
 
-          {/* Right Column: Hero Visual - Financial Analytics Visual System */}
+          {/* Right Column: Hero Visual - Executive Financial Workstation Terminal Frame */}
           <div className="lg:col-span-6">
-            <div className="glass-glow-card bg-white/95 dark:bg-slate-950/95 rounded-2xl border border-slate-200/90 dark:border-slate-800/90 p-5 sm:p-6 shadow-2xl relative transition-colors duration-200">
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -3 }}
+              className="glass-glow-card bg-white/95 dark:bg-slate-950/95 rounded-2xl border border-slate-200/90 dark:border-slate-800/90 p-5 sm:p-6 shadow-2xl relative transition-colors duration-200 overflow-hidden group"
+            >
               
+              {/* 4 Optical Corner Framing Reticles (Executive Terminal Style) */}
+              <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+                <span className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-emerald-500/70 dark:border-emerald-400/80 transition-transform group-hover:scale-110 duration-200" />
+                <span className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-emerald-500/70 dark:border-emerald-400/80 transition-transform group-hover:scale-110 duration-200" />
+                <span className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-emerald-500/70 dark:border-emerald-400/80 transition-transform group-hover:scale-110 duration-200" />
+                <span className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-emerald-500/70 dark:border-emerald-400/80 transition-transform group-hover:scale-110 duration-200" />
+              </div>
+
               {/* Top Laser Highlight Border */}
               <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent" />
+
+              {/* Executive Terminal Chrome Header */}
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-200/80 dark:border-slate-800/80 text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-rose-500/80" />
+                  <span className="w-2 h-2 rounded-full bg-amber-500/80" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                  <span className="ml-1.5 font-semibold text-slate-700 dark:text-slate-300">TERMINAL // FIN-ANALYTICS-OS v2.4</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-emerald-700 dark:text-emerald-400 font-bold">DXB-HQ // LIVE</span>
+                </div>
+              </div>
 
               {/* Dashboard Header with Period Controls */}
               <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -172,22 +208,32 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCVModal }) => {
                   </div>
                 </div>
 
-                {/* Period Selector Tabs */}
-                <div className="flex items-center bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
-                  {HERO_FINANCIAL_DATA.periods.map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => setSelectedPeriod(p)}
-                      className={`px-3 py-1 text-xs font-mono font-medium rounded-lg transition-all ${
-                        selectedPeriod === p
-                          ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                      }`}
-                    >
-                      {p}
-                    </button>
-                  ))}
+                {/* Period Selector Tabs with Framer Motion layoutId */}
+                <div className="flex items-center bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 relative">
+                  {HERO_FINANCIAL_DATA.periods.map((p) => {
+                    const isSelected = selectedPeriod === p;
+                    return (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => setSelectedPeriod(p)}
+                        className={`relative px-3 py-1 text-xs font-mono font-medium rounded-lg transition-colors z-10 ${
+                          isSelected
+                            ? 'text-white'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                        }`}
+                      >
+                        {isSelected && (
+                          <motion.span
+                            layoutId="heroPeriodPill"
+                            className="absolute inset-0 bg-emerald-600 rounded-lg shadow-md shadow-emerald-600/30 -z-10"
+                            transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                          />
+                        )}
+                        {p}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -418,7 +464,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCVModal }) => {
                 <span>{t('hero.ifrsCompliant')}</span>
               </div>
 
-            </div>
+            </motion.div>
           </div>
 
         </div>

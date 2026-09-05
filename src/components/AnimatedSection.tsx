@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Variants } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -12,11 +12,33 @@ interface AnimatedSectionProps {
 export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   children,
   className = 'w-full',
+  delay,
+  index = 0,
 }) => {
+  // Respect user preference for reduced motion
+  const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Staggered reveal based on index
+  const sectionDelay = delay !== undefined ? delay : Math.min(index * 0.06, 0.2);
+
+  if (prefersReduced) {
+    return <section className={className}>{children}</section>;
+  }
+
   return (
-    <div className={className}>
+    <motion.section
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px 0px' }}
+      transition={{
+        duration: 0.55,
+        delay: sectionDelay,
+        ease: [0.21, 0.47, 0.32, 0.98],
+      }}
+    >
       {children}
-    </div>
+    </motion.section>
   );
 };
 
