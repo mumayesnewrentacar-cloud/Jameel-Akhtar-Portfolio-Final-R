@@ -117,7 +117,7 @@ ${LANGUAGES_LIST.map(l => `* ${l.language}: ${l.proficiency}`).join('\n')}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto"
           role="dialog"
           aria-modal="true"
           aria-labelledby="cv-modal-title"
@@ -129,216 +129,224 @@ ${LANGUAGES_LIST.map(l => `* ${l.language}: ${l.proficiency}`).join('\n')}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ type: "spring", duration: 0.35, bounce: 0.12 }}
-            className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-2xl shadow-2xl text-slate-800 dark:text-slate-100 overflow-hidden my-auto"
+            className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#120d26] border border-purple-800/60 rounded-3xl shadow-2xl shadow-purple-950/70 text-slate-100 overflow-hidden my-auto"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* 4 Optical Corner Framing Reticles */}
+            <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+              <span className="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-pink-500/70" />
+              <span className="absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-pink-500/70" />
+              <span className="absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-pink-500/70" />
+              <span className="absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-pink-500/70" />
+            </div>
+
             {/* Modal Top Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 sticky top-0 z-10">
-          <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-            <h2 id="cv-modal-title" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
-              {t('modal.downloadPDF')}
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handlePrint}
-              type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-300 dark:border-slate-700 transition-colors"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{t('modal.printView')}</span>
-            </button>
-
-            <button
-              onClick={handleDownloadTextCV}
-              type="button"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-sm"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>{t('nav.downloadCV')}</span>
-            </button>
-
-            <button
-              onClick={onClose}
-              type="button"
-              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              aria-label={t('modal.close')}
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Formatted Resume Body */}
-        <div className="p-6 sm:p-8 space-y-6 overflow-y-auto text-slate-700 dark:text-slate-200 custom-scrollbar text-xs sm:text-sm">
-          
-          {/* Resume Header */}
-          <div className="border-b border-slate-200 dark:border-slate-800 pb-5">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                  {CANDIDATE_PROFILE.name}
-                </h1>
-                <p className="text-emerald-700 dark:text-emerald-400 font-mono text-sm font-semibold mt-0.5">
-                  {CANDIDATE_PROFILE.title}
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  {CANDIDATE_PROFILE.subheading}
-                </p>
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-purple-900/50 bg-[#150f2e] sticky top-0 z-10">
+              <div className="flex items-center gap-2">
+                <FileText className="w-5 h-5 text-pink-400" />
+                <h2 id="cv-modal-title" className="text-base sm:text-lg font-bold text-white tracking-tight">
+                  {t('modal.downloadPDF')}
+                </h2>
               </div>
 
-              <div className="space-y-1 text-xs font-mono text-slate-600 dark:text-slate-300">
-                <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>{CANDIDATE_PROFILE.email}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>{CANDIDATE_PROFILE.phone}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>{CANDIDATE_PROFILE.location}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Linkedin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <a 
-                    href={CANDIDATE_PROFILE.linkedin} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="hover:underline hover:text-emerald-600 dark:hover:text-emerald-300"
-                  >
-                    linkedin.com/in/jameel-akhtar-184508431
-                  </a>
-                </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePrint}
+                  type="button"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-[#1c133a] hover:text-white hover:bg-[#25184e] border border-purple-800/50 transition-colors cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5 text-pink-400" />
+                  <span className="hidden sm:inline">{t('modal.printView')}</span>
+                </button>
+
+                <button
+                  onClick={handleDownloadTextCV}
+                  type="button"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 transition-colors shadow-md shadow-pink-500/30 cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>{t('nav.downloadCV')}</span>
+                </button>
+
+                <button
+                  onClick={onClose}
+                  type="button"
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  aria-label={t('modal.close')}
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
             </div>
-          </div>
 
-          {/* Executive Summary */}
-          <div className="space-y-2">
-            <h3 className="text-xs font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400 tracking-wider">
-              {t('modal.executiveSummary')}
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              {CANDIDATE_PROFILE.summary}
-            </p>
-          </div>
-
-          {/* Work Experience */}
-          <div className="space-y-4">
-            <h3 className="text-xs font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400 tracking-wider">
-              {t('experience.title')}
-            </h3>
-            
-            <div className="space-y-4">
-              {EXPERIENCE_LIST.map((exp) => (
-                <div key={exp.id} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750 space-y-2">
-                  <div className="flex flex-wrap items-start justify-between gap-2">
-                    <div>
-                      <div className="font-bold text-slate-900 dark:text-white text-sm">
-                        {exp.role}
-                      </div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                        {exp.company} • {exp.location}
-                      </div>
-                    </div>
-                    <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400 font-medium">
-                      {exp.period}
-                    </span>
+            {/* Formatted Resume Body */}
+            <div className="p-6 sm:p-8 space-y-6 overflow-y-auto text-slate-200 custom-scrollbar text-xs sm:text-sm">
+              
+              {/* Resume Header */}
+              <div className="border-b border-purple-900/50 pb-5">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <h1 className="text-2xl font-bold text-white tracking-tight">
+                      {CANDIDATE_PROFILE.name}
+                    </h1>
+                    <p className="text-pink-400 font-mono text-sm font-semibold mt-0.5">
+                      {CANDIDATE_PROFILE.title}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-1">
+                      {CANDIDATE_PROFILE.subheading}
+                    </p>
                   </div>
 
-                  <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-300 pt-1">
-                    {exp.responsibilities.map((r, rIdx) => (
-                      <li key={rIdx} className="flex items-start gap-2">
-                        <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
-                        <span>{r}</span>
+                  <div className="space-y-1 text-xs font-mono text-slate-300">
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-3.5 h-3.5 text-pink-400" />
+                      <span>{CANDIDATE_PROFILE.email}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-3.5 h-3.5 text-pink-400" />
+                      <span>{CANDIDATE_PROFILE.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-3.5 h-3.5 text-pink-400" />
+                      <span>{CANDIDATE_PROFILE.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Linkedin className="w-3.5 h-3.5 text-pink-400" />
+                      <a 
+                        href={CANDIDATE_PROFILE.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="hover:underline hover:text-pink-300"
+                      >
+                        linkedin.com/in/jameel-akhtar-184508431
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Executive Summary */}
+              <div className="space-y-2">
+                <h3 className="text-xs font-mono uppercase font-bold text-pink-400 tracking-wider">
+                  {t('modal.executiveSummary')}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {CANDIDATE_PROFILE.summary}
+                </p>
+              </div>
+
+              {/* Work Experience */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-mono uppercase font-bold text-pink-400 tracking-wider">
+                  {t('experience.title')}
+                </h3>
+                
+                <div className="space-y-4">
+                  {EXPERIENCE_LIST.map((exp) => (
+                    <div key={exp.id} className="p-4 rounded-xl bg-[#160f33]/90 border border-purple-800/40 space-y-2">
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <div>
+                          <div className="font-bold text-white text-sm">
+                            {exp.role}
+                          </div>
+                          <div className="text-xs text-purple-300 font-mono">
+                            {exp.company} • {exp.location}
+                          </div>
+                        </div>
+                        <span className="text-xs font-mono text-pink-400 font-medium">
+                          {exp.period}
+                        </span>
+                      </div>
+
+                      <ul className="space-y-1 text-xs text-slate-300 pt-1">
+                        {exp.responsibilities.map((r, rIdx) => (
+                          <li key={rIdx} className="flex items-start gap-2">
+                            <span className="text-pink-400 font-bold">•</span>
+                            <span>{r}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="pt-2 text-[11px] font-mono text-slate-400">
+                        <strong className="text-pink-400">Impact: </strong>
+                        {exp.businessImpact}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education, Certifications & Languages */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-[#160f33]/90 border border-purple-800/40 space-y-2">
+                  <h3 className="text-xs font-mono uppercase font-bold text-pink-400 tracking-wider">
+                    {t('education.title')}
+                  </h3>
+                  {EDUCATION_LIST.map((edu, idx) => (
+                    <div key={idx} className="text-xs">
+                      <div className="font-bold text-white">{edu.degree}</div>
+                      <div className="text-purple-300 font-mono mt-0.5">{edu.institution}</div>
+                      <div className="text-pink-400 font-mono text-[11px] mt-0.5">{edu.period}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#160f33]/90 border border-purple-800/40 space-y-2">
+                  <h3 className="text-xs font-mono uppercase font-bold text-pink-400 tracking-wider">
+                    Certifications
+                  </h3>
+                  <ul className="text-xs space-y-1.5 text-slate-300">
+                    {CERTIFICATIONS_LIST.map((cert, idx) => (
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-pink-400 shrink-0 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-slate-200">{cert.title}</div>
+                          <div className="text-[10px] text-purple-300/80 font-mono">[{cert.dateOrExpected}] • {cert.status}</div>
+                        </div>
                       </li>
                     ))}
                   </ul>
-
-                  <div className="pt-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                    <strong className="text-emerald-700 dark:text-emerald-400">Impact: </strong>
-                    {exp.businessImpact}
-                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Education, Certifications & Languages */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750 space-y-2">
-              <h3 className="text-xs font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400 tracking-wider">
-                {t('education.title')}
-              </h3>
-              {EDUCATION_LIST.map((edu, idx) => (
-                <div key={idx} className="text-xs">
-                  <div className="font-bold text-slate-900 dark:text-white">{edu.degree}</div>
-                  <div className="text-slate-500 dark:text-slate-400 font-mono mt-0.5">{edu.institution}</div>
-                  <div className="text-emerald-600 dark:text-emerald-400 font-mono text-[11px] mt-0.5">{edu.period}</div>
+                <div className="p-4 rounded-xl bg-[#160f33]/90 border border-purple-800/40 space-y-2">
+                  <h3 className="text-xs font-mono uppercase font-bold text-pink-400 tracking-wider">
+                    Languages
+                  </h3>
+                  <ul className="text-xs space-y-1.5 text-slate-300">
+                    {LANGUAGES_LIST.map((lang, idx) => (
+                      <li key={idx} className="flex items-start justify-between gap-1.5 pb-1 border-b border-purple-900/40 last:border-0">
+                        <span className="font-semibold text-slate-200">{lang.language}</span>
+                        <span className="text-[11px] font-mono text-pink-400">{lang.badge}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
+              </div>
+
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750 space-y-2">
-              <h3 className="text-xs font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400 tracking-wider">
-                Certifications
-              </h3>
-              <ul className="text-xs space-y-1.5 text-slate-600 dark:text-slate-300">
-                {CERTIFICATIONS_LIST.map((cert, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-slate-200">{cert.title}</div>
-                      <div className="text-[10px] text-slate-400 font-mono">[{cert.dateOrExpected}] • {cert.status}</div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            {/* Modal Bottom Footer */}
+            <div className="p-4 border-t border-purple-900/50 bg-[#150f2e] flex items-center justify-between">
+              <span className="text-xs font-mono text-purple-300 hidden sm:inline">
+                Status: Ready for Executive Review
+              </span>
+              <div className="flex gap-2 w-full sm:w-auto justify-end">
+                <button
+                  onClick={onClose}
+                  type="button"
+                  className="px-4 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-[#1c133a] hover:bg-[#25184e] border border-purple-800/50 cursor-pointer"
+                >
+                  {t('modal.close')}
+                </button>
+                <button
+                  onClick={handleDownloadTextCV}
+                  type="button"
+                  className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 shadow-md shadow-pink-500/25 cursor-pointer"
+                >
+                  {t('nav.downloadCV')}
+                </button>
+              </div>
             </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750 space-y-2">
-              <h3 className="text-xs font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400 tracking-wider">
-                Languages
-              </h3>
-              <ul className="text-xs space-y-1.5 text-slate-600 dark:text-slate-300">
-                {LANGUAGES_LIST.map((lang, idx) => (
-                  <li key={idx} className="flex items-start justify-between gap-1.5 pb-1 border-b border-slate-200/60 dark:border-slate-750/60 last:border-0">
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">{lang.language}</span>
-                    <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">{lang.badge}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Modal Bottom Footer */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex items-center justify-between">
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
-            Status: Ready for Review
-          </span>
-          <div className="flex gap-2 w-full sm:w-auto justify-end">
-            <button
-              onClick={onClose}
-              type="button"
-              className="px-4 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-300 dark:border-slate-700"
-            >
-              {t('modal.close')}
-            </button>
-            <button
-              onClick={handleDownloadTextCV}
-              type="button"
-              className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm"
-            >
-              {t('nav.downloadCV')}
-            </button>
-          </div>
-        </div>
 
           </motion.div>
         </motion.div>

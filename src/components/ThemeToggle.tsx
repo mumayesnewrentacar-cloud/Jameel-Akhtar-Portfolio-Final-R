@@ -23,11 +23,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       type="button"
       onClick={toggleTheme}
       whileTap={{ scale: 0.92 }}
-      className={`relative inline-flex items-center gap-2 p-2 sm:px-2.5 sm:py-1.5 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1 select-none overflow-hidden ${
-        isDark
-          ? 'bg-slate-800/90 hover:bg-slate-800 border-slate-700/80 text-slate-300 hover:text-white focus:ring-offset-slate-900 shadow-sm'
-          : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700 hover:text-slate-900 focus:ring-offset-white shadow-sm'
-      } ${className}`}
+      className={`relative inline-flex items-center gap-2 p-2 sm:px-2.5 sm:py-1.5 rounded-lg border border-purple-800/60 bg-[#150f2e] hover:bg-[#1f1542] text-slate-200 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-1 select-none overflow-hidden shadow-xs cursor-pointer ${className}`}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
       title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
@@ -37,7 +33,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1.1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 rounded-lg ring-2 ring-emerald-400/60 pointer-events-none"
+          className="absolute inset-0 rounded-lg ring-2 ring-pink-500/60 pointer-events-none"
         />
       )}
 
@@ -50,7 +46,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             opacity: isDark ? 1 : 0,
           }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 flex items-center justify-center text-amber-300"
+          className="absolute inset-0 flex items-center justify-center text-pink-400"
         >
           <Moon className="w-4 h-4" />
         </motion.div>
@@ -63,14 +59,14 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             opacity: isDark ? 0 : 1,
           }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 flex items-center justify-center text-amber-500"
+          className="absolute inset-0 flex items-center justify-center text-amber-400"
         >
           <Sun className="w-4 h-4" />
         </motion.div>
       </div>
 
       {showLabel && (
-        <span className="text-xs font-medium tracking-tight font-sans">
+        <span className="text-xs font-medium tracking-tight font-mono text-purple-200">
           {isDark ? 'Dark Mode' : 'Light Mode'}
         </span>
       )}

@@ -12,8 +12,13 @@ import {
   Clock,
   ShieldCheck
 } from 'lucide-react';
+import { motion } from 'motion/react';
 import { CANDIDATE_PROFILE } from '../data/portfolioData';
 import { useLocalization } from '../context/LocalizationContext';
+import { 
+  AnimatedSectionHeader, 
+  CinematicScrollReveal 
+} from './AnimatedSection';
 
 interface ContactSectionProps {
   onOpenCVModal: () => void;
@@ -64,19 +69,29 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
   };
 
   return (
-    <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative py-20 bg-[#090614] text-slate-100 border-b border-purple-950/60 overflow-hidden">
+      {/* Background Matrix & Lighting */}
+      <div className="absolute inset-0 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:32px_32px] opacity-5 pointer-events-none" />
+      <div className="absolute bottom-10 -right-32 w-80 h-80 bg-fuchsia-900/15 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Work Together Resume CTA Banner */}
-        <div className="mb-16 p-8 sm:p-10 rounded-2xl bg-white dark:bg-slate-850 border border-slate-200 dark:border-slate-750 shadow-lg dark:shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+        {/* Work Together Resume CTA Banner with Motion Reveal */}
+        <CinematicScrollReveal direction="up" delay={0.1} className="relative mb-16 p-8 sm:p-10 rounded-2xl bg-[#130d2b]/95 border border-purple-800/50 shadow-2xl shadow-purple-950/60 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden">
+          {/* Corner Optical Reticles */}
+          <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-pink-500/60 pointer-events-none" />
+          <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-pink-500/60 pointer-events-none" />
+          <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-pink-500/60 pointer-events-none" />
+          <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-pink-500/60 pointer-events-none" />
+
           <div className="max-w-2xl">
-            <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-950/80 text-pink-400 border border-purple-800/50 shadow-sm">
               {t('contact.collabTag')}
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-3">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-3">
               {t('contact.collabTitle')}
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300">
+            <p className="mt-2 text-sm sm:text-base text-slate-300">
               {t('contact.collabDesc')}
             </p>
           </div>
@@ -86,7 +101,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
               onClick={onOpenCVModal}
               id="cta-download-cv-btn"
               type="button"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 active:opacity-90 transition-all shadow-lg shadow-pink-500/25 cursor-pointer"
             >
               <FileText className="w-4 h-4" />
               <span>{t('contact.downloadCV')}</span>
@@ -94,38 +109,43 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
 
             <a
               href="#contact-form"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-slate-500"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-purple-200 bg-[#181135] hover:bg-[#201642] border border-purple-800/60 transition-all cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <MessageSquare className="w-4 h-4 text-pink-400" />
               <span>{t('nav.contact')}</span>
             </a>
           </div>
-        </div>
+        </CinematicScrollReveal>
 
-        {/* Section Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs font-mono font-medium text-emerald-700 dark:text-emerald-400">
-            <span>{t('contact.tag')}</span>
-          </div>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {t('contact.title')}
-          </h2>
-          <p className="mt-3 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-            {t('contact.subtitle')}
-          </p>
-        </div>
+        {/* Section Header with Motion Scroll Entrance */}
+        <AnimatedSectionHeader
+          badge={
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-xs font-mono font-medium text-pink-400 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
+              <span>{t('contact.tag')}</span>
+            </div>
+          }
+          title={t('contact.title')}
+          subtitle={t('contact.subtitle')}
+        />
 
         {/* Contact Grid: Form & Channels */}
         <div id="contact-form" className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Left: Contact Information Cards */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-850 border border-slate-200 dark:border-slate-750 space-y-6 shadow-sm dark:shadow-lg">
+          <CinematicScrollReveal direction="left" delay={0.15} className="lg:col-span-5 space-y-6">
+            <div className="relative p-6 rounded-2xl bg-[#130d2b]/95 border border-purple-800/50 space-y-6 shadow-2xl shadow-purple-950/60 overflow-hidden">
+              {/* Corner Optical Reticles */}
+              <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-pink-500/60 pointer-events-none" />
+              <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-pink-500/60 pointer-events-none" />
+              <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-pink-500/60 pointer-events-none" />
+              <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-pink-500/60 pointer-events-none" />
+
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+                <h3 className="text-lg font-bold text-white tracking-tight">
                   {t('contact.directInquiries')}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-purple-300 mt-1">
                   Prompt professional response guaranteed within 24 business hours.
                 </p>
               </div>
@@ -135,14 +155,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                 {/* Email */}
                 <a
                   href={`mailto:${CANDIDATE_PROFILE.email}`}
-                  className="flex items-start gap-3.5 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 transition-all group"
+                  className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#181135] border border-purple-800/40 hover:border-pink-500/50 transition-all group"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/80 border border-purple-800/60 flex items-center justify-center text-pink-400 shrink-0 group-hover:scale-105 transition-transform">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Official Email</div>
-                    <div className="text-slate-900 dark:text-white font-medium break-all mt-0.5 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
+                    <div className="text-[11px] font-mono text-purple-300">Official Email</div>
+                    <div className="text-white font-medium break-all mt-0.5 group-hover:text-pink-300 transition-colors">
                       {CANDIDATE_PROFILE.email}
                     </div>
                   </div>
@@ -153,40 +173,40 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                   href={CANDIDATE_PROFILE.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3.5 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 transition-all group"
+                  className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#181135] border border-purple-800/40 hover:border-pink-500/50 transition-all group"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/80 border border-purple-800/60 flex items-center justify-center text-pink-400 shrink-0 group-hover:scale-105 transition-transform">
                     <Linkedin className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">LinkedIn Profile</div>
-                    <div className="text-slate-900 dark:text-white font-medium mt-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors break-all">
+                    <div className="text-[11px] font-mono text-purple-300">LinkedIn Profile</div>
+                    <div className="text-white font-medium mt-0.5 group-hover:text-pink-300 transition-colors break-all">
                       linkedin.com/in/jameel-akhtar-184508431
                     </div>
                   </div>
                 </a>
 
                 {/* Phone */}
-                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                  <div className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#181135] border border-purple-800/40">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/80 border border-purple-800/60 flex items-center justify-center text-pink-400 shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Phone / WhatsApp</div>
-                    <div className="text-slate-900 dark:text-white font-mono mt-0.5">
+                    <div className="text-[11px] font-mono text-purple-300">Phone / WhatsApp</div>
+                    <div className="text-white font-mono mt-0.5">
                       {CANDIDATE_PROFILE.phone}
                     </div>
                   </div>
                 </div>
 
                 {/* Location */}
-                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                  <div className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#181135] border border-purple-800/40">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/80 border border-purple-800/60 flex items-center justify-center text-pink-400 shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{t('contact.location')}</div>
-                    <div className="text-slate-900 dark:text-white font-medium mt-0.5">
+                    <div className="text-[11px] font-mono text-purple-300">{t('contact.location')}</div>
+                    <div className="text-white font-medium mt-0.5">
                       {CANDIDATE_PROFILE.location}
                     </div>
                   </div>
@@ -195,36 +215,41 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
               </div>
 
               {/* Status Note */}
-              <div className="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-1">
-                <div className="flex items-center gap-1.5 font-mono text-emerald-700 dark:text-emerald-400 font-semibold">
+              <div className="p-3.5 rounded-xl bg-purple-950/60 border border-purple-800/50 text-xs text-purple-200 space-y-1">
+                <div className="flex items-center gap-1.5 font-mono text-pink-400 font-semibold">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>{t('contact.availability')}</span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-slate-300">
                   {CANDIDATE_PROFILE.availability}
                 </p>
               </div>
 
             </div>
-          </div>
+          </CinematicScrollReveal>
 
           {/* Right: Interactive Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-850 border border-slate-200 dark:border-slate-750 shadow-sm dark:shadow-xl">
+          <CinematicScrollReveal direction="right" delay={0.2} className="lg:col-span-7">
+            <div className="relative p-6 sm:p-8 rounded-2xl bg-[#130d2b]/95 border border-purple-800/50 shadow-2xl shadow-purple-950/60 overflow-hidden">
+              {/* Corner Optical Reticles */}
+              <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-pink-500/60 pointer-events-none" />
+              <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-pink-500/60 pointer-events-none" />
+              <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-pink-500/60 pointer-events-none" />
+              <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-pink-500/60 pointer-events-none" />
               
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+              <h3 className="text-xl font-bold text-white tracking-tight mb-2">
                 {t('contact.formTitle')}
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 font-mono">
+              <p className="text-xs text-purple-300 mb-6 font-mono">
                 All inquiries are treated with strict corporate confidentiality.
               </p>
 
               {/* Success Notification */}
               {status === 'success' && (
-                <div className="mb-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/30 text-xs text-emerald-800 dark:text-emerald-200 flex items-start gap-3 animate-in fade-in">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <div className="mb-6 p-4 rounded-xl bg-purple-950/80 border border-pink-500/50 text-xs text-pink-200 flex items-start gap-3 animate-in fade-in">
+                  <CheckCircle2 className="w-5 h-5 text-pink-400 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-emerald-900 dark:text-emerald-300">{t('contact.successTitle')}</div>
+                    <div className="font-bold text-white">{t('contact.successTitle')}</div>
                     <p className="mt-0.5">
                       {t('contact.successDesc')}
                     </p>
@@ -234,10 +259,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
 
               {/* Error Notification */}
               {status === 'error' && errorMessage && (
-                <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-500/30 text-xs text-rose-800 dark:text-rose-200 flex items-start gap-3 animate-in fade-in">
-                  <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                <div className="mb-6 p-4 rounded-xl bg-rose-950/80 border border-rose-500/50 text-xs text-rose-200 flex items-start gap-3 animate-in fade-in">
+                  <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-rose-900 dark:text-rose-300">Validation Notice</div>
+                    <div className="font-bold text-white">Validation Notice</div>
                     <p className="mt-0.5">{errorMessage}</p>
                   </div>
                 </div>
@@ -248,7 +273,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name */}
                   <div>
-                    <label htmlFor="contact-name" className="block font-mono text-xs text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label htmlFor="contact-name" className="block font-mono text-xs text-purple-300 mb-1.5">
                       {t('contact.nameLabel')}
                     </label>
                     <input
@@ -259,13 +284,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('contact.namePlaceholder')}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#181135] border border-purple-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                     />
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label htmlFor="contact-email" className="block font-mono text-xs text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label htmlFor="contact-email" className="block font-mono text-xs text-purple-300 mb-1.5">
                       {t('contact.emailLabel')}
                     </label>
                     <input
@@ -276,14 +301,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                       value={formData.email}
                       onChange={handleChange}
                       placeholder={t('contact.emailPlaceholder')}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#181135] border border-purple-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Subject */}
                 <div>
-                  <label htmlFor="contact-subject" className="block font-mono text-xs text-slate-700 dark:text-slate-300 mb-1.5">
+                  <label htmlFor="contact-subject" className="block font-mono text-xs text-purple-300 mb-1.5">
                     {t('contact.subjectLabel')}
                   </label>
                   <input
@@ -293,13 +318,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder={t('contact.subjectPlaceholder')}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#181135] border border-purple-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="contact-message" className="block font-mono text-xs text-slate-700 dark:text-slate-300 mb-1.5">
+                  <label htmlFor="contact-message" className="block font-mono text-xs text-purple-300 mb-1.5">
                     {t('contact.messageLabel')}
                   </label>
                   <textarea
@@ -310,7 +335,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                     value={formData.message}
                     onChange={handleChange}
                     placeholder={t('contact.messagePlaceholder')}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#181135] border border-purple-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none"
                   />
                 </div>
 
@@ -319,7 +344,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 disabled:opacity-50 transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 disabled:opacity-50 transition-all shadow-lg shadow-pink-500/25 cursor-pointer"
                   >
                     {status === 'submitting' ? (
                       <>
@@ -338,7 +363,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCVModal })
               </form>
 
             </div>
-          </div>
+          </CinematicScrollReveal>
 
         </div>
 

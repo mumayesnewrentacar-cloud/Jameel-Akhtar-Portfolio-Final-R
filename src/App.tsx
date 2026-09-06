@@ -1,116 +1,114 @@
 import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
+import { DigimaxNavbar } from './components/DigimaxNavbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
-import { ValuesSection } from './components/ValuesSection';
-import { ExperienceSection } from './components/ExperienceSection';
-import { SkillsSection } from './components/SkillsSection';
-import { ProjectsSection } from './components/ProjectsSection';
-import { FinancialModelingShowcase } from './components/FinancialModelingShowcase';
 import { AccountingKnowledgeSection } from './components/AccountingKnowledgeSection';
+import { FinancialModelingShowcase } from './components/FinancialModelingShowcase';
+import { EducationCertifications } from './components/EducationCertifications';
+import { SkillsSection } from './components/SkillsSection';
+import { ValuesSection } from './components/ValuesSection';
+import { DigimaxLogoCloud } from './components/DigimaxLogoCloud';
+import { ExperienceSection } from './components/ExperienceSection';
+import { ProjectsSection } from './components/ProjectsSection';
 import { DataAnalyticsSection } from './components/DataAnalyticsSection';
 import { ToolsSection } from './components/ToolsSection';
-import { EducationCertifications } from './components/EducationCertifications';
+import { DigimaxFAQ } from './components/DigimaxFAQ';
 import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
+import { DigimaxFooter } from './components/DigimaxFooter';
+import { DiscoverMoreModal } from './components/DiscoverMoreModal';
 import { ResumeDownloadModal } from './components/ResumeDownloadModal';
-import { AnimatedSection } from './components/AnimatedSection';
-import { CinematicAmbientCanvas, CinematicTelemetryBar } from './components/CinematicAmbientCanvas';
-import { CinematicThemeCrossfade } from './components/CinematicThemeCrossfade';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
 
 export default function App() {
+  const [isDiscoverModalOpen, setIsDiscoverModalOpen] = useState(false);
   const [isCVModalOpen, setIsCVModalOpen] = useState(false);
 
+  const handleOpenGetStarted = () => {
+    setIsDiscoverModalOpen(true);
+  };
+
+  const handleOpenDiscoverMore = () => {
+    setIsDiscoverModalOpen(true);
+  };
+
+  const handleOpenCVModal = () => {
+    setIsCVModalOpen(true);
+  };
+
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 transition-colors duration-450">
-      {/* Background Cinematic Luminous Glows */}
-      <CinematicAmbientCanvas />
+    <div className="relative min-h-screen bg-[#090614] text-slate-100 font-sans selection:bg-pink-500/30 selection:text-pink-200 antialiased overflow-x-hidden">
+      
+      {/* Navigation Bar with Jameel Akhtar Identity and DigiMax Style */}
+      <DigimaxNavbar 
+        onOpenCVModal={handleOpenCVModal}
+        onOpenGetStarted={handleOpenGetStarted} 
+      />
 
-      {/* Cinematic Theme Cross-Fade Exposure Shutter */}
-      <CinematicThemeCrossfade />
-
-      {/* Top Financial Telemetry Ticker */}
-      <CinematicTelemetryBar />
-
-      {/* Sticky Navigation Bar */}
-      <Navbar onOpenCVModal={() => setIsCVModalOpen(true)} />
-
-      {/* Main Content Sections with Viewport-Triggered Staggered Reveals */}
+      {/* Main Content Flow Integrating Jameel Akhtar's Portfolio & DigiMax Framing */}
       <main className="relative flex flex-col z-10">
-        {/* 1. Hero Section & Financial Analytics Visual System */}
-        <AnimatedSection index={0} threshold={0.05}>
-          <Hero onOpenCVModal={() => setIsCVModalOpen(true)} />
-        </AnimatedSection>
+        
+        {/* 1. Hero Section & Financial Workstation Terminal */}
+        <Hero onOpenCVModal={handleOpenCVModal} />
 
+        {/* 2. Executive About & Professional Arc */}
+        <AboutSection onOpenCVModal={handleOpenCVModal} />
 
-        {/* 2. Professional Summary & Storytelling Arc */}
-        <AnimatedSection index={1}>
-          <AboutSection onOpenCVModal={() => setIsCVModalOpen(true)} />
-        </AnimatedSection>
+        {/* 3. Core Discipline: General Ledger, IFRS & End-to-End Accounting Cycle */}
+        <AccountingKnowledgeSection />
 
-        {/* 3. Core Operating Values: How I Add Value */}
-        <AnimatedSection index={2}>
-          <ValuesSection />
-        </AnimatedSection>
+        {/* 4. Financial Modeling Architecture (11-Step Valuation Cascade) */}
+        <FinancialModelingShowcase />
 
-        {/* 4. Professional Experience Vertical Timeline */}
-        <AnimatedSection index={3}>
-          <ExperienceSection />
-        </AnimatedSection>
+        {/* 5. Verified Credentials, Academic Education & Certifications (From Candidate CV Data) */}
+        <EducationCertifications onOpenCVModal={handleOpenCVModal} />
 
-        {/* 5. Categorized Skills & Technical Competencies */}
-        <AnimatedSection index={4}>
-          <SkillsSection />
-        </AnimatedSection>
+        {/* 6. Comprehensive Categorized Skills & Technical Competencies Taxonomy */}
+        <SkillsSection />
 
-        {/* 6. Featured Financial Projects (with Interactive Details Modal) */}
-        <AnimatedSection index={5}>
-          <ProjectsSection />
-        </AnimatedSection>
+        {/* 7. Core Professional Values & Accounting Rigor */}
+        <ValuesSection />
 
-        {/* 7. Dedicated Financial Modeling Cascade & Node Inspector */}
-        <AnimatedSection index={6}>
-          <FinancialModelingShowcase />
-        </AnimatedSection>
+        {/* 8. Framed Logo Cloud: ERP & Enterprise Systems Grid matching attached design */}
+        <DigimaxLogoCloud />
 
-        {/* 8. Accounting & Reporting Expertise (8-Stage Cycle & Principles) */}
-        <AnimatedSection index={7}>
-          <AccountingKnowledgeSection />
-        </AnimatedSection>
+        {/* 9. Career Experience Timeline (9+ Years Progression) */}
+        <ExperienceSection />
 
-        {/* 9. From Raw Data to Financial Insight (ETL & Live Analytics Views) */}
-        <AnimatedSection index={8}>
-          <DataAnalyticsSection />
-        </AnimatedSection>
+        {/* 10. Featured Production Financial Projects & Models */}
+        <ProjectsSection />
 
-        {/* 10. Technology & Financial Systems Grid */}
-        <AnimatedSection index={9}>
-          <ToolsSection />
-        </AnimatedSection>
+        {/* 11. Data Analytics, Power BI & Power Query ETL Automation */}
+        <DataAnalyticsSection />
 
-        {/* 11. Academic Education & Verified Certifications */}
-        <AnimatedSection index={10}>
-          <EducationCertifications />
-        </AnimatedSection>
+        {/* 12. Financial Tech Stack & ERP Systems */}
+        <ToolsSection />
 
-        {/* 12. Work Together Resume CTA & Direct Contact Form */}
-        <AnimatedSection index={11}>
-          <ContactSection onOpenCVModal={() => setIsCVModalOpen(true)} />
-        </AnimatedSection>
+        {/* 13. Common Questions & Most Popular Questions Accordion with Discover More */}
+        <DigimaxFAQ onOpenDiscoverMore={handleOpenDiscoverMore} />
+
+        {/* 14. Contact & Advisory Inquiry Section (Dubai, UAE) */}
+        <ContactSection onOpenCVModal={handleOpenCVModal} />
+
       </main>
 
-      {/* Footer */}
-      <Footer onOpenCVModal={() => setIsCVModalOpen(true)} />
+      {/* Footer with Services, Support, Company, and Copyright */}
+      <DigimaxFooter />
 
-      {/* Executive CV Modal */}
+      {/* Interactive Discover More Consultation Modal */}
+      <DiscoverMoreModal
+        isOpen={isDiscoverModalOpen}
+        onClose={() => setIsDiscoverModalOpen(false)}
+      />
+
+      {/* ATS-Compliant Resume / CV Viewer & Download Modal */}
       <ResumeDownloadModal
         isOpen={isCVModalOpen}
         onClose={() => setIsCVModalOpen(false)}
       />
 
-      {/* Floating Back to Top Action Button */}
-      <ScrollToTopButton threshold={350} />
+      {/* Back to Top Floating Action Button */}
+      <ScrollToTopButton threshold={300} />
+      
     </div>
   );
 }

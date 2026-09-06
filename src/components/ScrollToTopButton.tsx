@@ -70,7 +70,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ threshold 
             onClick={scrollToTop}
             aria-label="Return to top of page"
             title="Return to top"
-            className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-slate-800 backdrop-blur-md shadow-lg shadow-slate-900/10 dark:shadow-black/40 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:shadow-emerald-500/15 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-900 transition-all duration-200 cursor-pointer"
+            className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#120d26]/90 text-slate-200 border border-purple-800/60 backdrop-blur-md shadow-lg shadow-purple-950/40 hover:text-pink-400 hover:border-pink-500/50 hover:shadow-pink-500/20 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-200 cursor-pointer"
           >
             {/* SVG Circular Scroll Progress Ring */}
             <svg
@@ -83,7 +83,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ threshold 
                 cx="22"
                 cy="22"
                 r={radius}
-                className="stroke-slate-200/60 dark:stroke-slate-800/80"
+                className="stroke-purple-950/80"
                 strokeWidth="2.5"
                 fill="none"
               />
@@ -92,7 +92,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ threshold 
                 cx="22"
                 cy="22"
                 r={radius}
-                className="stroke-emerald-500 transition-[stroke-dashoffset] duration-150 ease-out"
+                className="stroke-pink-500 transition-[stroke-dashoffset] duration-150 ease-out"
                 strokeWidth="2.5"
                 fill="none"
                 strokeLinecap="round"
@@ -106,7 +106,7 @@ export const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ threshold 
 
             {/* Hover Tooltip (Desktop) */}
             <span
-              className="absolute right-full mr-3 px-2.5 py-1 rounded-md text-xs font-medium text-white bg-slate-900/95 dark:bg-slate-800 border border-slate-800 dark:border-slate-700 shadow-md whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 hidden sm:block"
+              className="absolute right-full mr-3 px-2.5 py-1 rounded-md text-xs font-mono font-medium text-purple-200 bg-[#150f2e] border border-purple-800/60 shadow-md whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 hidden sm:block"
               role="tooltip"
             >
               Back to top

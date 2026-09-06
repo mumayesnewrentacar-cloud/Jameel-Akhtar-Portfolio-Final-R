@@ -38,18 +38,17 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const applyThemeToDOM = useCallback((targetTheme: Theme) => {
     if (typeof document === 'undefined') return;
     const root = document.documentElement;
+    root.style.backgroundColor = '#090614';
     if (targetTheme === 'dark') {
       root.classList.add('dark');
       root.classList.remove('light');
       root.setAttribute('data-theme', 'dark');
       root.style.colorScheme = 'dark';
-      root.style.backgroundColor = '#0b1120';
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
       root.setAttribute('data-theme', 'light');
-      root.style.colorScheme = 'light';
-      root.style.backgroundColor = '#f8fafc';
+      root.style.colorScheme = 'dark';
     }
   }, []);
 

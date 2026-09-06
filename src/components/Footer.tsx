@@ -28,7 +28,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCVModal }) => {
                 {CANDIDATE_PROFILE.name}
               </span>
               <span className="text-slate-400 dark:text-slate-600">|</span>
-              <span className="text-emerald-700 dark:text-emerald-400 font-mono font-medium">
+              <span className="text-pink-400 font-mono font-medium">
                 {CANDIDATE_PROFILE.title}
               </span>
             </div>
@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCVModal }) => {
             <a href="#contact" className="hover:text-slate-900 dark:hover:text-white transition-colors">{t('nav.contact')}</a>
             <button
               onClick={onOpenCVModal}
-              className="text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-semibold transition-colors"
+              className="text-pink-400 hover:text-pink-300 font-semibold transition-colors"
             >
               {t('nav.downloadCV')}
             </button>
@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCVModal }) => {
             </a>
             <button
               onClick={scrollToTop}
-              className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors flex items-center gap-1 p-1 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
+              className="hover:text-pink-400 transition-colors flex items-center gap-1 p-1 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
               aria-label="Scroll back to top"
             >
               <ArrowUp className="w-3 h-3" />

@@ -11,7 +11,14 @@ import {
   Calculator,
   Building2
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ACCOUNTING_CYCLE_STEPS } from '../data/portfolioData';
+import { 
+  AnimatedSectionHeader, 
+  AnimatedStaggerContainer, 
+  AnimatedItem, 
+  CinematicScrollReveal 
+} from './AnimatedSection';
 
 export const AccountingKnowledgeSection: React.FC = () => {
   const [activeCycleStep, setActiveCycleStep] = useState<number>(0);
@@ -56,40 +63,44 @@ export const AccountingKnowledgeSection: React.FC = () => {
   ];
 
   return (
-    <section id="accounting" className="relative py-20 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
-      {/* Subtle Dot Matrix */}
-      <div className="absolute inset-0 bg-dot-matrix dark:bg-dot-matrix-dark pointer-events-none opacity-40 dark:opacity-20" />
+    <section id="accounting" className="relative py-20 bg-[#090614] text-slate-100 border-b border-purple-950/60 overflow-hidden">
+      {/* Background Matrix */}
+      <div className="absolute inset-0 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:32px_32px] opacity-5 pointer-events-none" />
+      <div className="absolute top-1/2 -right-48 w-96 h-96 bg-fuchsia-900/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-slate-700 text-xs font-mono font-medium text-emerald-700 dark:text-emerald-400 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>06 // CORE DISCIPLINE</span>
-          </div>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Accounting &amp; Reporting Expertise
-          </h2>
-          <p className="mt-3 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-            A bedrock foundation in general accounting, double-entry ledger discipline, statutory compliance, 
-            and period-end close governance that guarantees corporate figures are verifiable, auditable, and robust.
-          </p>
-        </div>
+        {/* Section Header with Motion Scroll Entrance */}
+        <AnimatedSectionHeader
+          badge={
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-xs font-mono font-medium text-pink-400 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
+              <span>06 // CORE DISCIPLINE</span>
+            </div>
+          }
+          title="Accounting &amp; Reporting Expertise"
+          subtitle="A bedrock foundation in general accounting, double-entry ledger discipline, statutory compliance, and period-end close governance that guarantees corporate figures are verifiable, auditable, and robust."
+        />
 
-        {/* 8-Stage Accounting Cycle Visual Workflow */}
-        <div className="mt-12 bg-slate-50 dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-750 p-6 sm:p-8 shadow-sm dark:shadow-md transition-colors duration-200">
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-6 border-b border-slate-200 dark:border-slate-750">
+        {/* 8-Stage Accounting Cycle Visual Workflow with Motion Entrance */}
+        <CinematicScrollReveal direction="up" delay={0.15} className="relative mt-12 bg-[#130d2b]/95 rounded-2xl border border-purple-800/50 p-6 sm:p-8 shadow-2xl shadow-purple-950/50 overflow-hidden">
+          {/* Corner Optical Reticles */}
+          <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-pink-500/60 pointer-events-none" />
+          <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-pink-500/60 pointer-events-none" />
+          <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-pink-500/60 pointer-events-none" />
+          <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-pink-500/60 pointer-events-none" />
+
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-6 border-b border-purple-900/50">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+              <h3 className="text-lg font-bold text-white tracking-tight">
                 The End-to-End Accounting Cycle
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+              <p className="text-xs text-purple-300 font-mono">
                 From Raw Source Transaction to Executive Decision
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-800 shadow-xs">
-              <Scale className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs font-mono text-pink-300 bg-purple-950/80 px-3 py-1 rounded-full border border-purple-800/50 shadow-xs">
+              <Scale className="w-4 h-4 text-pink-400" />
               <span>Full Audit Trail Preserved</span>
             </div>
           </div>
@@ -103,30 +114,30 @@ export const AccountingKnowledgeSection: React.FC = () => {
                   key={step.step}
                   type="button"
                   onClick={() => setActiveCycleStep(idx)}
-                  className={`p-3 rounded-xl text-left transition-all border flex flex-col justify-between group ${
+                  className={`p-3 rounded-xl text-left transition-all border flex flex-col justify-between group cursor-pointer ${
                     isSelected
-                      ? 'bg-emerald-50/90 dark:bg-slate-800 border-emerald-500 shadow-md ring-1 ring-emerald-500/40'
-                      : 'bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-100/60 dark:hover:bg-slate-850'
+                      ? 'bg-gradient-to-br from-pink-500/20 via-purple-900/40 to-fuchsia-950/30 border-pink-500 text-white shadow-lg shadow-pink-500/20 ring-1 ring-pink-500/40'
+                      : 'bg-[#181135] border-purple-900/50 text-slate-300 hover:border-purple-700/60 hover:text-white'
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <span className={`w-5 h-5 rounded-full font-mono text-[10px] font-bold flex items-center justify-center ${
                         isSelected 
-                          ? 'bg-emerald-600 text-white dark:bg-emerald-500 dark:text-slate-950' 
-                          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white'
+                          ? 'bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white' 
+                          : 'bg-purple-950/60 text-purple-300 group-hover:text-white'
                       }`}>
                         {step.step}
                       </span>
                       {idx < ACCOUNTING_CYCLE_STEPS.length - 1 && (
-                        <span className="text-slate-400 dark:text-slate-600 text-xs hidden lg:inline">→</span>
+                        <span className="text-purple-600 text-xs hidden lg:inline">→</span>
                       )}
                     </div>
-                    <div className="text-xs font-bold text-slate-900 dark:text-white tracking-tight leading-snug">
+                    <div className="text-xs font-bold text-white tracking-tight leading-snug">
                       {step.title}
                     </div>
                   </div>
-                  <div className="mt-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                  <div className="mt-2 text-[10px] font-mono text-slate-400">
                     {step.subtitle}
                   </div>
                 </button>
@@ -136,72 +147,77 @@ export const AccountingKnowledgeSection: React.FC = () => {
 
           {/* Detailed Drawer for Active Selected Cycle Step */}
           {ACCOUNTING_CYCLE_STEPS[activeCycleStep] && (
-            <div className="mt-6 p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 grid grid-cols-1 md:grid-cols-12 gap-5 items-center shadow-xs">
+            <div className="mt-6 p-5 rounded-xl bg-[#1a123a] border border-purple-800/50 grid grid-cols-1 md:grid-cols-12 gap-5 items-center shadow-md">
               <div className="md:col-span-8 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 font-semibold">
+                <div className="flex items-center gap-2 text-xs font-mono text-pink-400 font-semibold">
                   <span>CYCLE STEP 0{ACCOUNTING_CYCLE_STEPS[activeCycleStep].step}</span>
                   <span>•</span>
                   <span>{ACCOUNTING_CYCLE_STEPS[activeCycleStep].title}</span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {ACCOUNTING_CYCLE_STEPS[activeCycleStep].description}
                 </p>
               </div>
 
-              <div className="md:col-span-4 p-3.5 rounded-lg bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750">
-                <div className="text-[11px] font-mono uppercase text-emerald-700 dark:text-emerald-400 font-semibold mb-1 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <div className="md:col-span-4 p-3.5 rounded-lg bg-[#150d2e] border border-purple-800/40">
+                <div className="text-[11px] font-mono uppercase text-pink-400 font-semibold mb-1 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-pink-400" />
                   <span>Internal Control &amp; QA Check</span>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-snug">
+                <p className="text-xs text-slate-300 leading-snug">
                   {ACCOUNTING_CYCLE_STEPS[activeCycleStep].controls}
                 </p>
               </div>
             </div>
           )}
-        </div>
+        </CinematicScrollReveal>
 
         {/* 6 Core Accounting Knowledge Modules */}
         <div className="mt-12">
-          <div className="mb-6 flex items-center justify-between">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+          <CinematicScrollReveal direction="up" delay={0.1} className="mb-6 flex items-center justify-between">
+            <h3 className="text-lg font-bold text-white tracking-tight">
               Accounting Principles &amp; Governance Areas
             </h3>
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-mono text-purple-300">
               IFRS &amp; US GAAP Frameworks
             </span>
-          </div>
+          </CinematicScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatedStaggerContainer staggerDelay={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {coreKnowledgeCards.map((card, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-850 border border-slate-200 dark:border-slate-750 hover:border-emerald-500/40 dark:hover:border-slate-650 transition-all flex flex-col justify-between shadow-sm dark:shadow-md"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-                      {card.title}
-                    </h4>
-                    <span className="text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-500/20">
-                      0{idx + 1}
-                    </span>
-                  </div>
-                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2 font-medium">
-                    {card.subtitle}
-                  </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    {card.desc}
-                  </p>
-                </div>
+              <AnimatedItem key={idx} whileHoverLift>
+                <div
+                  className="relative p-5 rounded-2xl bg-[#130d2b]/90 border border-purple-800/40 hover:border-pink-500/50 transition-all flex flex-col justify-between shadow-xl group h-full"
+                >
+                  {/* Micro corner accent */}
+                  <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-purple-700/40 group-hover:border-pink-500/60 transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-purple-700/40 group-hover:border-pink-500/60 transition-colors pointer-events-none" />
 
-                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-750 flex items-center gap-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span className="truncate">{card.standards}</span>
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-base font-bold text-white tracking-tight">
+                        {card.title}
+                      </h4>
+                      <span className="text-[11px] font-mono font-bold text-pink-400 bg-purple-950/80 px-2 py-0.5 rounded-full border border-purple-800/50">
+                        0{idx + 1}
+                      </span>
+                    </div>
+                    <div className="text-xs font-mono text-purple-300 mb-2 font-medium">
+                      {card.subtitle}
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-purple-900/50 flex items-center gap-2 text-[11px] font-mono text-slate-400">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-pink-400 shrink-0" />
+                    <span className="truncate">{card.standards}</span>
+                  </div>
                 </div>
-              </div>
+              </AnimatedItem>
             ))}
-          </div>
+          </AnimatedStaggerContainer>
         </div>
 
       </div>

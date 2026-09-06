@@ -18,21 +18,21 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
   return (
     <div
       id={id}
-      className={`inline-flex items-center rounded-lg p-0.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors ${className}`}
+      className={`inline-flex items-center rounded-lg p-0.5 bg-[#150f2e] border border-purple-800/60 shadow-xs transition-colors ${className}`}
       role="group"
       aria-label="Language selector"
     >
-      <div className="flex items-center pl-1.5 pr-1 text-slate-400 dark:text-slate-500">
+      <div className="flex items-center pl-1.5 pr-1 text-pink-400">
         <Globe className="w-3.5 h-3.5" aria-hidden="true" />
       </div>
 
       <button
         type="button"
         onClick={() => setLanguage('en')}
-        className={`px-2 py-1 text-xs font-medium rounded-md transition-all duration-150 ${
+        className={`px-2 py-1 text-xs font-medium rounded-md transition-all duration-150 cursor-pointer ${
           language === 'en'
-            ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold'
-            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            ? 'bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white shadow-xs font-semibold'
+            : 'text-purple-300 hover:text-white hover:bg-white/5'
         }`}
         aria-pressed={language === 'en'}
         aria-label="English"
@@ -43,10 +43,10 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
       <button
         type="button"
         onClick={() => setLanguage('ar')}
-        className={`px-2 py-1 text-xs font-medium rounded-md transition-all duration-150 font-sans ${
+        className={`px-2 py-1 text-xs font-medium rounded-md transition-all duration-150 font-sans cursor-pointer ${
           language === 'ar'
-            ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold'
-            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            ? 'bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white shadow-xs font-semibold'
+            : 'text-purple-300 hover:text-white hover:bg-white/5'
         }`}
         aria-pressed={language === 'ar'}
         aria-label="العربية"
@@ -55,7 +55,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
       </button>
 
       {showLabel && (
-        <span className="text-xs text-slate-500 dark:text-slate-400 px-1 font-sans">
+        <span className="text-xs text-purple-300 px-1 font-mono">
           {isRTL ? 'العربية' : 'English'}
         </span>
       )}

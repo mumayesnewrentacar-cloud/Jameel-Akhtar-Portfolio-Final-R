@@ -55,19 +55,19 @@ export const CinematicSpotlightCard: React.FC<CinematicSpotlightCardProps> = ({
         <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
           {/* Top Left */}
           <span className={`absolute top-1.5 left-1.5 w-2 h-2 border-t border-l transition-colors duration-300 ${
-            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+            isHovered ? 'border-pink-500 shadow-xs' : 'border-purple-800/40'
           }`} />
           {/* Top Right */}
           <span className={`absolute top-1.5 right-1.5 w-2 h-2 border-t border-r transition-colors duration-300 ${
-            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+            isHovered ? 'border-pink-500 shadow-xs' : 'border-purple-800/40'
           }`} />
           {/* Bottom Left */}
           <span className={`absolute bottom-1.5 left-1.5 w-2 h-2 border-b border-l transition-colors duration-300 ${
-            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+            isHovered ? 'border-pink-500 shadow-xs' : 'border-purple-800/40'
           }`} />
           {/* Bottom Right */}
           <span className={`absolute bottom-1.5 right-1.5 w-2 h-2 border-b border-r transition-colors duration-300 ${
-            isHovered ? 'border-emerald-500 shadow-sm' : 'border-slate-300/70 dark:border-slate-700/60'
+            isHovered ? 'border-pink-500 shadow-xs' : 'border-purple-800/40'
           }`} />
         </div>
       )}

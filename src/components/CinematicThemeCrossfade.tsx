@@ -52,8 +52,8 @@ export const CinematicThemeCrossfade: React.FC = () => {
               // Transition to Dark: Atmospheric Twilight Vignette & Soft Indigo Shadow Bloom
               <div className="absolute inset-0 bg-gradient-radial from-slate-950/0 via-slate-950/20 to-slate-950/40 backdrop-blur-[1px]" />
             ) : (
-              // Transition to Light: Radiant Daylight Dispersion & Soft Golden/Emerald Glow
-              <div className="absolute inset-0 bg-gradient-radial from-emerald-500/10 via-amber-500/5 to-white/30 backdrop-blur-[1px]" />
+              // Transition to Light: Radiant Daylight Dispersion & Soft Fuchsia/Pink Glow
+              <div className="absolute inset-0 bg-gradient-radial from-pink-500/10 via-fuchsia-500/5 to-purple-950/20 backdrop-blur-[1px]" />
             )}
 
             {/* Cinematic Horizontal Anamorphic Laser Flare */}
@@ -61,7 +61,7 @@ export const CinematicThemeCrossfade: React.FC = () => {
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: [0, 1.2, 1.5], opacity: [0, 0.8, 0] }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent origin-center"
+              className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-pink-500 to-transparent origin-center"
             />
           </motion.div>
         )}
